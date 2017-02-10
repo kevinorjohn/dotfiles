@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# path
-PATH="`pwd`/`dirname $0`/src"
-
 # color format setting
 BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
@@ -12,12 +9,22 @@ YELLOW=$(tput setaf 3)
 PURPLE=$(tput setaf 5)
 LBLUE=$(tput setaf 6)
 
-function SET_FILE {
+# path
+PATH="`dirname $0`/src"
+
+SET_FILE() {
+	# Check whether the file exists or not
 	if [ -f ~/$1 ]; then
 		echo "${YELLOW}Warning: $1 exists in ${HOME}${NORMAL}"
-		mv ~/$1 ~/$1.old 
+		echo "To keep file and rename $1?[Y/n]: "
+		read opt
+		if [ $opt -eq "N" ] || [ $opt -eq "n" ]; then
+			rm -i ~/$1
+		else
+			mv ~/$1 ~/$1.old
+		fi
 	fi
-	echo "Setting up $1"
+	echo "Setting up $1..."
 	cp $PATH/$1 ~/$1
 	if [ $? -eq "0" ]; then
 		echo "${RED}ERROR: Cannot set up $1${NORMAL}"
@@ -25,7 +32,7 @@ function SET_FILE {
 }
 
 
-function INSTALL {
+INSTALL() {
 	for $file in $1/*
 	do
 		if [ -f $file]; then
@@ -34,17 +41,18 @@ function INSTALL {
 	done
 }
 
+# install basic plugins
 INSTALL $PATH
-if [ ! -z "$1" ]; then
-	# install another version with YouCompleteMe
-	INSTALL "$PATH/all"
-fi
 
-if $SHELL == "bash"
+if [ $1 -eq "--advanced" ]; then
+	# install advanced version with YouCompleteMe plugin
+	INSTALL "$PATH/advanced"
+fi
 
 # Setup vundle and install vim plugins
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
-echo "${GREEN}Installation is complete${NORMAL}"
 source ~/.bashrc
+
+echo "${GREEN}Installation is complete${NORMAL}"
