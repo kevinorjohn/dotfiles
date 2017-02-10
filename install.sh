@@ -10,7 +10,7 @@ PURPLE=$(tput setaf 5)
 LBLUE=$(tput setaf 6)
 
 # path
-PATH="`dirname $0`/src"
+REPOPATH="`dirname $0`/src"
 
 SET_FILE() {
 	# Check whether the file exists or not
@@ -25,7 +25,7 @@ SET_FILE() {
 		fi
 	fi
 	echo "Setting up $1..."
-	cp $PATH/$1 ~/$1
+	cp $REPOPATH/$1 ~/$1
 	if [ $? -eq "0" ]; then
 		echo "${RED}ERROR: Cannot set up $1${NORMAL}"
 	fi
@@ -42,11 +42,11 @@ INSTALL() {
 }
 
 # install basic plugins
-INSTALL $PATH
+INSTALL $REPOPATH
 
 if [ $1 -eq "--advanced" ]; then
 	# install advanced version with YouCompleteMe plugin
-	INSTALL "$PATH/advanced"
+	INSTALL "$REPOPATH/advanced"
 fi
 
 # Setup vundle and install vim plugins
