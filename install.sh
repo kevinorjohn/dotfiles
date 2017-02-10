@@ -55,4 +55,4 @@ if [ ! -f ~/.vim/bundle/Vundle.vim ]; then
 fi
 vim +PluginInstall +qall
 
-echo "${GREEN}Installation is complete${NORMAL}"
+cho "${GREEN}Installation is complete${NORMAL}"
