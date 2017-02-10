@@ -11,6 +11,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Lokaltog/vim-easymotion'
