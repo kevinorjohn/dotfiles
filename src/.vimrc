@@ -14,8 +14,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'bling/vim-airline'
+Plugin 'lokaltog/vim-powerline'
 Plugin 'raimondi/delimitmate'
 Plugin 'ervandew/supertab'
 
@@ -48,58 +47,23 @@ nnoremap <leader>l gt
 let g:javascript_enable_domhtmlcss = 1
 let g:html_indent_inctags = "html,body,head,tbody"
 
-let g:airline_section_y = '%{strftime("%c")}'
-let g:airline_section_c = '%t'
-let g:airline_section_x = ''
-let g:airline_section_warning = ''
+"let g:airline_section_y = '%{strftime("%c")}'
+"let g:airline_section_c = '%t'
+"let g:airline_section_x = ''
+"let g:airline_section_warning = ''
 
 "set status line
 set laststatus=2
+set showtabline=2
 set t_Co=256
-""enable powerline-fonts
-let g:airline_powerline_fonts = 1
-
-" enable tabline
-let g:airline#extensions#tabline#enabled = 1
-
-syntax on
-
-colorscheme molokai
-set background=dark	" another is 'light'
-let g:rehash256 = 1
-let g:airline_theme="lucius"
-
-set cursorline
-set mouse=a
-autocmd filetype python setlocal colorcolumn=80
-
-" CTRL-C and CTRL-Insert are Copy
-vnoremap <C-C> "+y
-vnoremap <C-Insert> "+y
-
-" CTRL-V and SHIFT-Insert are Paste
-"map <C-V> "+gP
-"map <S-Insert> "+gP
-
-cmap <C-V> <C-R>+
-cmap <S-Insert> <C-R>+
-
-" Pasting blockwise and linewise selections is not possible in Insert and
-" Visual mode without the +virtualedit feature. They are pasted as if they
-" were characterwise instead.
-" Uses the paste.vim autoload script.
-
-exe 'inoremap <script> <C-V>' paste#paste_cmd['i']
-exe 'vnoremap <script> <C-V>' paste#paste_cmd['v']
-
-imap <S-Insert> <C-V>
-vmap <S-Insert> <C-V>
 
 set nocompatible
 set wildmenu
 set backupdir=~/tmp,.,/var/tmp/vi.recover,/tmp
 set directory=~/tmp,/var/tmp/vi.recover,/tmp,.
 set backup		" keep a backup file
+" set textwidth=78
+" set shiftwidth=4
 set bs=2		" allow backspacing over everything in insert mode
 set ai			" always set autoindenting on
 set viminfo='20,\"50	" read/write a .viminfo file, don't store more
@@ -108,6 +72,24 @@ set nu
 set ts=4
 set shiftwidth=4
 set hlsearch
+
+" VIM 6.0,
+if version >= 600
+    "set nohlsearch
+	 "set foldcolumn=2
+	"set foldmethod=syntax
+	set foldmethod=marker
+    set foldlevel=1
+"    set foldtext=/^/=>
+     set encoding=utf-8
+    " set fileencoding=big5
+    " set termencoding=big5
+    " set encoding=big5
+    " set fileencodings=latin,big5,ucs-bom,utf-8,sjis,big5
+    set fileencodings=ucs-bom,utf-8,sjis,big5,gbk
+else
+    set fileencoding=taiwan
+endif
 
 " Tab key binding
 if version >= 700

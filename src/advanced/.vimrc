@@ -15,9 +15,9 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'bling/vim-airline'
-"Plugin 'lokaltog/vim-powerline'
+"Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'bling/vim-airline'
+Plugin 'lokaltog/vim-powerline'
 Plugin 'valloric/youcompleteme'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'raimondi/delimitmate'
@@ -74,19 +74,20 @@ nnoremap <leader>l gt
 let g:javascript_enable_domhtmlcss = 1
 let g:html_indent_inctags = "html,body,head,tbody"
 
-let g:airline_section_y = '%{strftime("%c")}'
-let g:airline_section_c = '%t'
-let g:airline_section_x = ''
-let g:airline_section_warning = ''
+"let g:airline_section_y = '%{strftime("%c")}'
+"let g:airline_section_c = '%t'
+"let g:airline_section_x = ''
+"let g:airline_section_warning = ''
+" enable tabline
+"let g:airline#extensions#tabline#enabled = 1
 
 "set status line
 set laststatus=2
+set showtabline=2
 set t_Co=256
 ""enable powerline-fonts
 let g:airline_powerline_fonts = 1
 
-" enable tabline
-let g:airline#extensions#tabline#enabled = 1
 
 let g:solarized_termcolors=256
 
