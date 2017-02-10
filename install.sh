@@ -10,49 +10,49 @@ PURPLE=$(tput setaf 5)
 LBLUE=$(tput setaf 6)
 
 # path
-PATH="`dirname $0`/src"
+REPOPATH="`dirname $0`/src"
 
 SET_FILE() {
 	# Check whether the file exists or not
 	if [ -f ~/$1 ]; then
 		echo "${YELLOW}Warning: $1 exists in ${HOME}${NORMAL}"
-		echo "To keep file and rename $1?[Y/n]: "
+		echo -n "To keep file and rename $1?[Y/n]: "
 		read opt
-		if [ $opt -eq "N" ] || [ $opt -eq "n" ]; then
+		if [ "$opt" == "N" ] || [ "$opt" == "n" ]; then
 			rm -i ~/$1
 		else
 			mv ~/$1 ~/$1.old
 		fi
 	fi
 	echo "Setting up $1..."
-	cp $PATH/$1 ~/$1
-	if [ $? -eq "0" ]; then
+	cp $REPOPATH/$1 ~/$1
+	if [ ! $? -eq "0" ]; then
 		echo "${RED}ERROR: Cannot set up $1${NORMAL}"
 	fi
 }
 
 
 INSTALL() {
-	for $file in $1/*
+	for file in $(ls -a $1/.[a-zA-Z0-9]*)
 	do
-		if [ -f $file]; then
+		if [ -f $file ]; then
 			SET_FILE $(basename $file)
 		fi
 	done
 }
 
 # install basic plugins
-INSTALL $PATH
+INSTALL $REPOPATH
 
-if [ $1 -eq "--advanced" ]; then
+if [ "$1" == "--advanced" ]; then
 	# install advanced version with YouCompleteMe plugin
-	INSTALL "$PATH/advanced"
+	INSTALL "${REPOPATH}/advanced"
 fi
 
 # Setup vundle and install vim plugins
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if [ ! -f ~/.vim/bundle/Vundle.vim ]; then
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
 vim +PluginInstall +qall
-
-source ~/.bashrc
 
 echo "${GREEN}Installation is complete${NORMAL}"
