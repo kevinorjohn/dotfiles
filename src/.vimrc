@@ -56,6 +56,44 @@ let g:html_indent_inctags = "html,body,head,tbody"
 set laststatus=2
 set showtabline=2
 set t_Co=256
+syntax on
+
+colorscheme molokai
+"colorscheme solarized
+set background=dark	" another is 'light'
+"set background=light
+"let g:molokai_original = 1
+let g:rehash256 = 1
+let g:airline_theme="lucius"
+"let g:airline_teme="murmur"
+"let g:airline_theme="badwolf"
+"let g:airline_theme="tomorrow"
+
+set cursorline
+set mouse=a
+autocmd filetype python setlocal colorcolumn=80
+
+" CTRL-C and CTRL-Insert are Copy
+vnoremap <C-C> "+y
+vnoremap <C-Insert> "+y
+
+" CTRL-V and SHIFT-Insert are Paste
+"map <C-V> "+gP
+"map <S-Insert> "+gP
+
+cmap <C-V> <C-R>+
+cmap <S-Insert> <C-R>+
+
+" Pasting blockwise and linewise selections is not possible in Insert and
+" Visual mode without the +virtualedit feature. They are pasted as if they
+" were characterwise instead.
+" Uses the paste.vim autoload script.
+
+exe 'inoremap <script> <C-V>' paste#paste_cmd['i']
+exe 'vnoremap <script> <C-V>' paste#paste_cmd['v']
+
+imap <S-Insert> <C-V>
+vmap <S-Insert> <C-V>
 
 set nocompatible
 set wildmenu
