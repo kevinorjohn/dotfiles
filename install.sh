@@ -15,15 +15,21 @@ REPOPATH="`dirname $0`/src"
 SET_FILE() {
 	# Check whether the file exists or not
 	if [ -f ~/$1 ]; then
-		echo "${YELLOW}Warning: $1 exists in ${HOME}${NORMAL}"
-		echo -n "To keep file and rename $1?[Y/n]: "
+		echo "${YELLOW}Warning: $1 has already existed in ${HOME}${NORMAL}"
+        echo -n "Enter [Y/y] to keep and rename $1, or press [N/n] to remove it?[Y/n/q]: "
 		read opt
 		if [ "$opt" == "N" ] || [ "$opt" == "n" ]; then
-			rm -i ~/$1
-		else
-			mv ~/$1 ~/$1.old
+            echo "${RED}Removing $1${NORMAL}"
+			rm -vi ~/$1
+        elif [ "$opt" == "Q" ] || [ "$opt" == "q" ]; then
+            echo "${GREEN}Keeping file $1${NORMAL}"
+            return
+        else
+            echo "${GREEN}Renaming $1 to $1.old${NORMAL}"
+            mv ~/$1 ~/$1.old
 		fi
 	fi
+    read param
 	echo "Setting up $1..."
 	cp $REPOPATH/$1 ~/$1
 	if [ ! $? -eq "0" ]; then
