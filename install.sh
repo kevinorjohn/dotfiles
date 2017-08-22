@@ -29,7 +29,6 @@ SET_FILE() {
             mv ~/$1 ~/$1.old
 		fi
 	fi
-    read param
 	echo "Setting up $1..."
 	cp $REPOPATH/$1 ~/$1
 	if [ ! $? -eq "0" ]; then
