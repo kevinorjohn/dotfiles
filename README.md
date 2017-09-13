@@ -1,7 +1,7 @@
 Environment Setting
 ===================
 
-This script helps you efficently set up Vim configuration, Bash environmnet and
+This script helps you efficently set up Vim configuration, Bash environment and
 Input configuration on Unix-like system.
 
 Usage
