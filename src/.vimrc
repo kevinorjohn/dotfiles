@@ -18,6 +18,7 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'lokaltog/vim-powerline'
 Plugin 'raimondi/delimitmate'
 Plugin 'ervandew/supertab'
+Plugin 'ntpeters/vim-better-whitespace'
 
 " theme
 Plugin 'tomasr/molokai'
@@ -39,6 +40,7 @@ set foldnestmax=10
 set nofoldenable
 set foldlevel=2
 
+nmap <leader>  :StripWhitespace<cr>
 
 nmap <leader>e :NERDTree<cr>
 nmap <leader>c :NERDTreeClose<cr>
@@ -110,7 +112,9 @@ set showmatch
 set nu
 set ts=4
 set shiftwidth=4
+set softtabstop=4
 set hlsearch
+set expandtab
 
 " VIM 6.0,
 if version >= 600
