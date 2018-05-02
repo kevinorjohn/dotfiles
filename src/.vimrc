@@ -19,12 +19,19 @@ Plugin 'lokaltog/vim-powerline'
 Plugin 'raimondi/delimitmate'
 Plugin 'ervandew/supertab'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'Vimjas/vim-python-pep8-indent'
+" for python syntax
+Plugin 'python-mode/python-mode'
+" for c++ syntax
+Plugin 'octol/vim-cpp-enhanced-highlight'
 
 " theme
 Plugin 'tomasr/molokai'
 
 call vundle#end()
 filetype plugin indent on     " required
+
+let g:pymode_rope = 0
 
 let g:NERDTreeWinSize = 20
 let mapleader = " "
