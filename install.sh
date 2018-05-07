@@ -60,4 +60,13 @@ if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
 fi
 vim +PluginInstall +qall
 
+# Setup pyenv
+if [ ! -d ~/.pyenv ]; then
+    git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+fi
+
+if [ ! -d ~/.pyenv/plugins/pyenv-virtualenv ]; then
+    git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+fi
+
 echo "${GREEN}Installation is complete${NORMAL}"
