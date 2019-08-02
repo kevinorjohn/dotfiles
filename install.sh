@@ -10,47 +10,51 @@ PURPLE=$(tput setaf 5)
 LBLUE=$(tput setaf 6)
 
 # path
-REPOPATH="`dirname $0`/src"
+SRCPATH="`dirname $0`/src"
 
 SET_FILE() {
+    FILE=".$1"
 	# Check whether the file exists or not
-	if [ -f ~/$1 ]; then
-		echo "${YELLOW}Warning: $1 has already existed in ${HOME}${NORMAL}"
-        echo -n "Enter [Y/y] to keep and rename $1, or press [N/n] to remove it?[Y/n/q]: "
+	if [ -f ~/$FILE ]; then
+		echo "${YELLOW}Warning: $FILE has already existed in ${HOME}${NORMAL}"
+        echo -n "Delete [D], keep [K] or rename [R] $FILE to $FILE.old: "
 		read opt
-		if [ "$opt" == "N" ] || [ "$opt" == "n" ]; then
-            echo "${RED}Removing $1${NORMAL}"
-			rm -vi ~/$1
-        elif [ "$opt" == "Q" ] || [ "$opt" == "q" ]; then
-            echo "${GREEN}Keeping file $1${NORMAL}"
+		if [ "$opt" == "D" ] || [ "$opt" == "d" ]; then
+            echo "${RED}Deleting $FILE${NORMAL}"
+			rm -vi ~/$FILE
+        elif [ "$opt" == "K" ] || [ "$opt" == "k" ]; then
+            echo "${GREEN}Keeping original file $FILE${NORMAL}"
             return
+        elif [ "$opt" == "R" ] || [ "$opt" == "r" ]; then
+            echo "${GREEN}Renaming $FILE to $FILE.old${NORMAL}"
+            mv ~/$FILE ~/$FILE.old
         else
-            echo "${GREEN}Renaming $1 to $1.old${NORMAL}"
-            mv ~/$1 ~/$1.old
+            echo "${RED}ERROR: option should be either [D/K/R]${NORMAL}"
+            exit 1
 		fi
 	fi
-	echo "Setting up $1..."
-	cp $REPOPATH/$1 ~/$1
+	echo "Setting up $FILE..."
+	cp $SRCPATH/$1 ~/$FILE
 	if [ ! $? -eq "0" ]; then
-		echo "${RED}ERROR: Cannot set up $1${NORMAL}"
+		echo "${RED}ERROR: Cannot set up $FILE${NORMAL}"
 	fi
 }
 
 
 INSTALL() {
-	for file in $(ls -a $1/.[a-zA-Z0-9]*)
+	for file in $(ls -a $1/[a-zA-Z0-9]*)
 	do
 		if [ -f $file ]; then
-			SET_FILE ".$(basename $file)"
+			SET_FILE $(basename $file)
 		fi
 	done
 }
 
 # install basic plugins
-INSTALL $REPOPATH
+INSTALL $SRCPATH
 
 # install vim plugins
-vim +PluginInstall +qall
+vim +PlugInstall +qall
 
 # Setup pyenv
 if [ ! -d ~/.pyenv ]; then
