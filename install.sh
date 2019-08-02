@@ -41,7 +41,7 @@ INSTALL() {
 	for file in $(ls -a $1/.[a-zA-Z0-9]*)
 	do
 		if [ -f $file ]; then
-			SET_FILE $(basename $file)
+			SET_FILE ".$(basename $file)"
 		fi
 	done
 }
@@ -49,15 +49,7 @@ INSTALL() {
 # install basic plugins
 INSTALL $REPOPATH
 
-if [ "$1" == "--advanced" ]; then
-	# install advanced version with YouCompleteMe plugin
-	INSTALL "${REPOPATH}/advanced"
-fi
-
-# Setup vundle and install vim plugins
-if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
+# install vim plugins
 vim +PluginInstall +qall
 
 # Setup pyenv
