@@ -6,7 +6,7 @@ set nocompatible
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    " autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
 endif
 
 " Specify a directory for plugins
@@ -20,7 +20,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " autocompletion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'for': ['c', 'cpp', 'python'] }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer'}
+"Plug 'zxqfl/tabnine-vim', { 'do': './install.sh --clang-completer', 'for': ['c', 'cpp', 'python'] }
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -33,9 +34,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
 Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'yuttie/comfortable-motion.vim'
 
 " theme
 Plug 'tomasr/molokai'
@@ -49,6 +52,7 @@ set nobackup
 set nowb
 set noswapfile
 set noerrorbells
+set t_vb=
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
@@ -80,6 +84,7 @@ set title
 set titlestring=%F\ -\ vim
 set noshowmode
 set laststatus=2
+set showtabline=2
 set background=dark
 
 set history=1000                "Store lots of :cmdline history

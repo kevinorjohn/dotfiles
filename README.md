@@ -9,7 +9,7 @@ Usage
 
 To set up the environmnet, please run the following command:
 ``` 
-make install
+./install.sh
 ``` 
 
 

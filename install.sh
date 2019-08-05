@@ -12,8 +12,15 @@ LBLUE=$(tput setaf 6)
 # path
 SRCPATH="`dirname $0`/src"
 
-SET_FILE() {
-    FILE=".$1"
+COPY_FILE() {
+    FILE=$(basename $1)
+    TARGET_DIR=$2
+    HIDDEN_FILE=$3
+
+    if $HIDDEN_FILE; then
+        FILE=".$FILE"
+    fi
+
 	# Check whether the file exists or not
 	if [ -f ~/$FILE ]; then
 		echo "${YELLOW}Warning: $FILE has already existed in ${HOME}${NORMAL}"
@@ -33,28 +40,40 @@ SET_FILE() {
             exit 1
 		fi
 	fi
+
 	echo "Setting up $FILE..."
-	cp $SRCPATH/$1 ~/$FILE
+    mkdir -p $TARGET_DIR
+	cp $1 $TARGET_DIR/$FILE
 	if [ ! $? -eq "0" ]; then
 		echo "${RED}ERROR: Cannot set up $FILE${NORMAL}"
 	fi
 }
 
 
-INSTALL() {
-	for file in $(ls -a $1/[a-zA-Z0-9]*)
-	do
-		if [ -f $file ]; then
-			SET_FILE $(basename $file)
+COPY_DIR() {
+    DIR=$1
+    TARGET_DIR=$2
+    HIDDEN_FILE=$3
+
+	for FILE in $(ls -a $DIR/[a-zA-Z0-9]*)
+    do
+		if [ -f $FILE ]; then
+			COPY_FILE $FILE $TARGET_DIR $HIDDEN_FILE
 		fi
 	done
 }
 
-# install basic plugins
-INSTALL $SRCPATH
-
 # install vim plugins
-vim +PlugInstall +qall
+COPY_FILE vim/vimrc $HOME true
+COPY_DIR vim/ftplugin $HOME/.vim/ftplugin false
+
+# install tmux configuration
+COPY_FILE tmux/tmux.conf $HOME true
+COPY_FILE tmux/tmux.conf.local $HOME true
+
+# install bashrc and inputrc
+COPY_FILE bash/bashrc $HOME true
+COPY_FILE bash/inputrc $HOME true
 
 # Setup pyenv
 if [ ! -d ~/.pyenv ]; then
