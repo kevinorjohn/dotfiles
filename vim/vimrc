@@ -20,7 +20,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " autocompletion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer'}
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer'}
 "Plug 'zxqfl/tabnine-vim', { 'do': './install.sh --clang-completer', 'for': ['c', 'cpp', 'python'] }
 
 " fzf
@@ -135,6 +135,9 @@ set splitright
 let mapleader = " "
 nnoremap <Leader>h gT
 nnoremap <Leader>l gt
+" move tabe
+map <Leader>ml :tabmove +1<CR>
+map <Leader>mk :tabmove -1<CR>
 map <Leader><space> :StripWhitespace<cr>
 
 " easymotion
@@ -164,3 +167,6 @@ let g:lightline = {
   \         'gitbranch': 'gitbranch#name'
   \     }
   \ }
+
+" fzf
+map <Leader>; :Files<cr>
