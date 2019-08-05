@@ -32,6 +32,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
@@ -157,16 +158,70 @@ let NERDTreeShowHidden = 1
 " disable pymode checking
 let g:pymode_lint = 0
 
-" lightline
+" ale
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" Lightline
 let g:lightline = {
-  \     'active': {
-  \         'left': [['mode', 'paste' ], ['readonly', 'filename', 'modified']],
-  \         'right': [['lineinfo'], ['percent'], ['gitbranch', 'fileformat', 'fileencoding']]
-  \     },
-  \     'component_function': {
-  \         'gitbranch': 'gitbranch#name'
-  \     }
-  \ }
+    \ 'active': {
+    \   'left': [['mode', 'paste'], ['readonly', 'filename', 'modified']],
+    \   'right': [['lineinfo'], ['percent'], ['gitbranch', 'fileformat', 'fileencoding'],['linter_checking', 'linter_warnings', 'linter_errors', 'linter_ok']]
+    \ },
+    \ 'component_function': {
+    \    'gitbranch': 'gitbranch#name'
+    \ },
+    \ 'component_expand': {
+    \   'linter_warnings': 'LightlineLinterWarnings',
+    \   'linter_errors': 'LightlineLinterErrors',
+    \   'linter_ok': 'LightlineLinterOK'
+    \ },
+    \ 'component_type': {
+    \   'readonly': 'error',
+    \   'linter_warnings': 'warning',
+    \   'linter_errors': 'error'
+    \ },
+    \ }
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+endfunction
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ✘', all_errors)
+endfunction
+function! LightlineLinterOK() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+function! s:MaybeUpdateLightline()
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction
+
+" Update the lightline scheme from the colorscheme. Hopefully.
+function! s:UpdateLightlineColorScheme()
+  let g:lightline.colorscheme = g:colors_name
+  call lightline#init()
+endfunction
+
+augroup _lightline
+  autocmd!
+  autocmd User ALELint call s:MaybeUpdateLightline()
+  autocmd ColorScheme * call s:UpdateLightlineColorScheme()
+augroup END
 
 " fzf
 map <Leader>; :Files<cr>
