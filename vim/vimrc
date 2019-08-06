@@ -40,6 +40,7 @@ Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'yuttie/comfortable-motion.vim'
+Plug 'jiangmiao/auto-pairs'
 
 " theme
 Plug 'tomasr/molokai'
@@ -138,7 +139,7 @@ nnoremap <Leader>h gT
 nnoremap <Leader>l gt
 " move tabe
 map <Leader>ml :tabmove +1<CR>
-map <Leader>mk :tabmove -1<CR>
+map <Leader>mh :tabmove -1<CR>
 map <Leader><space> :StripWhitespace<cr>
 
 " easymotion
@@ -148,9 +149,6 @@ map <Leader> <Plug>(easymotion-prefix)
 let g:better_whitespace_enabled = 1
 let g:strip_whitespace_on_save = 1
 
-" ale
-let g:ale_fix_on_save = 1
-
 " nertree
 map <Leader>n :NERDTreeToggle<CR>
 let NERDTreeShowHidden = 1
@@ -159,6 +157,7 @@ let NERDTreeShowHidden = 1
 let g:pymode_lint = 0
 
 " ale
+let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_echo_msg_error_str = 'E'
