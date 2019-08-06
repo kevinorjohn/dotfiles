@@ -75,10 +75,7 @@ if has('mac')
 endif
 
 " basic configuration
-if has("gui_running")
-"tell the term has 256 colors
-  set t_Co=256
-end
+set t_Co=256
 syntax on
 set autoindent
 set number
