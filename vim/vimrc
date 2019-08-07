@@ -21,7 +21,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " autocompletion
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer'}
-"Plug 'zxqfl/tabnine-vim', { 'do': './install.sh --clang-completer', 'for': ['c', 'cpp', 'python'] }
+"Plug 'zxqfl/tabnine-vim', { 'do': 'python3 install.py --clang-completer'}
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -41,6 +41,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'ryanoasis/vim-devicons'
+Plug 'majutsushi/tagbar'
+Plug 'airblade/vim-gitgutter'
 
 " theme
 Plug 'tomasr/molokai'
@@ -67,7 +70,7 @@ endif
 " set up clipboard, mouse and always scroll at center
 set mouse=a
 set ttymouse=xterm2
-set so=999
+"set so=999
 set clipboard=unnamedplus
 set wildmenu
 if has('mac')
@@ -132,8 +135,8 @@ set splitright
 
 " custom binding
 let mapleader = " "
-nnoremap <Leader>h gT
-nnoremap <Leader>l gt
+nmap <Leader>h gT
+nmap <Leader>l gt
 " move tabe
 map <Leader>ml :tabmove +1<CR>
 map <Leader>mh :tabmove -1<CR>
@@ -221,3 +224,15 @@ augroup END
 
 " fzf
 map <Leader>; :Files<cr>
+
+" ctags
+" specify the ctags path
+let g:tagbar_ctags_bin = '$HOME/bin/ctags'
+nmap <Leader>t :TagbarToggle<CR>
+
+" ycm disable preview windows
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
+
+" gitgutter
+nmap <Leader>g :GitGutterToggle<CR>
