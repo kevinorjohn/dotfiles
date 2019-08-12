@@ -48,9 +48,19 @@ uncomment a line
 <Leader> + c + u
 ```
 
-add ipdb/pdb breakpoint for python
+add/remove ipdb/pdb breakpoint for python
 ```
-<Leader> + b + b
+<Leader> + b
+```
+
+turn on/off tags
+```
+<Leader> + t
+```
+
+turn on/off GitGutter
+```
+<Leader> + g
 ```
 
 
