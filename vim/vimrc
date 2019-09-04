@@ -44,6 +44,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ryanoasis/vim-devicons'
 Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " theme
 Plug 'tomasr/molokai'
@@ -94,6 +96,8 @@ set showcmd                     "Show incomplete cmds down the bottom
 set showmode                    "Show current mode down the bottom
 set visualbell                  "No sounds
 set autoread
+" eliminate delay time
+set timeoutlen=1000 ttimeoutlen=0
 
 " theme
 " colorscheme molokai
@@ -135,8 +139,8 @@ set splitright
 
 " custom binding
 let mapleader = " "
-nmap <Leader>h gT
-nmap <Leader>l gt
+nmap <Leader>hh gT
+nmap <Leader>ll gt
 " move tabe
 map <Leader>ml :tabmove +1<CR>
 map <Leader>mh :tabmove -1<CR>
@@ -236,3 +240,6 @@ let g:ycm_add_preview_to_completeopt = 0
 
 " gitgutter
 nmap <Leader>g :GitGutterToggle<CR>
+
+" markdown
+let g:vim_markdown_folding_disabled = 1

@@ -66,6 +66,8 @@ COPY_DIR() {
 # install vim plugins
 COPY_FILE vim/vimrc $HOME true
 COPY_DIR vim/ftplugin $HOME/.vim/ftplugin false
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim +PlugInstall +qall
 
 # install tmux configuration
 COPY_FILE tmux/tmux.conf $HOME true
