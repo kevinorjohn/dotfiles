@@ -14,7 +14,7 @@ To set up the environmnet, please run the following command:
 
 If the configuration does exist, please press `r` to raname the file, 
 or press `k` to keep the original configuration and skip the installation.
-Otherwise, please press `y` to set up the dotfiles.
+Otherwise, please press `d` to delete the old configuration and set up the new dotfiles.
 
 
 Credits
