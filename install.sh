@@ -77,13 +77,18 @@ COPY_FILE tmux/tmux.conf.local $HOME true
 COPY_FILE bash/bashrc $HOME true
 COPY_FILE bash/inputrc $HOME true
 
-# Setup pyenv
+# set up pyenv
 if [ ! -d ~/.pyenv ]; then
     git clone https://github.com/yyuu/pyenv.git ~/.pyenv
 fi
 
 if [ ! -d ~/.pyenv/plugins/pyenv-virtualenv ]; then
     git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+fi
+
+# set up git prompt
+if [ ! -d ~/.bash ]; then
+    git clone git://github.com/jimeh/git-aware-prompt.git ~/.bash
 fi
 
 echo "${GREEN}Installation is complete${NORMAL}"
