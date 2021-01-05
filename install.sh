@@ -87,8 +87,8 @@ if [ ! -d ~/.pyenv/plugins/pyenv-virtualenv ]; then
 fi
 
 # set up git prompt
-if [ ! -d ~/.bash ]; then
-    git clone git://github.com/jimeh/git-aware-prompt.git ~/.bash
+if [ ! -d ~/.bash/git-aware-prompt ]; then
+    git clone git://github.com/jimeh/git-aware-prompt.git ~/.bash/git-aware-prompt
 fi
 
 echo "${GREEN}Installation is complete${NORMAL}"
